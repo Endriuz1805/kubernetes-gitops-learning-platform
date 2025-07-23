@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: learning-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      add_header X-Environment "staging" always;
+      add_header X-Debug "enabled" always;
+spec:
+  tls:
+  - hosts:
+    - staging.learning-app.yourdomain.com
+    secretName: learning-app-staging-tls
+  rules:
+  - host: staging.learning-app.yourdomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: staging-learning-app-service
+            port:
+              number: 80

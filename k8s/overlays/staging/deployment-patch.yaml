@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learning-app
+spec:
+  template:
+    spec:
+      containers:
+      - name: learning-app
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        env:
+        - name: DEBUG
+          value: "true"
+        - name: CACHE_TTL
+          value: "60"
